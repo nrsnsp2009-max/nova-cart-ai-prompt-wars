@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOVA CART - Zero-Cancellation Interactive Prototype</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+    .badge-verified { background-color: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+    .badge-rerouted { background-color: #e0f2fe; color: #0369a1; border: 1px solid #7dd3fc; }
+    .pulse-glow { animation: pulse 2s infinite; }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800">
+
+  <!-- TOP HEADER & MODE SWITCHER -->
+  <header class="bg-slate-900 text-white sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="bg-rose-500 text-white font-extrabold px-3 py-1 rounded-lg text-lg tracking-wider">NOVA CART</div>
+        <span class="text-xs bg-slate-800 text-emerald-400 px-2 py-1 rounded border border-slate-700 font-mono">PROTOTYPE v2.0</span>
+      </div>
+      
+      <!-- MODE NAVIGATION TABS -->
+      <nav class="flex bg-slate-800 p-1 rounded-xl border border-slate-700 text-xs sm:text-sm">
+        <button id="tab-customer" onclick="switchMode('customer')" class="px-4 py-2 rounded-lg font-semibold transition-all bg-rose-500 text-white shadow">
+          <i class="fa-solid fa-mobile-screen mr-1.5"></i> Customer App
+        </button>
+        <button id="tab-merchant" onclick="switchMode('merchant')" class="px-4 py-2 rounded-lg font-semibold transition-all text-slate-300 hover:text-white">
+          <i class="fa-solid fa-store mr-1.5"></i> Merchant 1-Click Sync
+        </button>
+        <button id="tab-dashboard" onclick="switchMode('dashboard')" class="px-4 py-2 rounded-lg font-semibold transition-all text-slate-300 hover:text-white">
+          <i class="fa-solid fa-chart-line mr-1.5"></i> Executive Impact
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6">
+
+    <!-- ==================== MODE 1: CUSTOMER APP ==================== -->
+    <section id="mode-customer" class="space-y-6">
+      
+      <!-- Banner Announcement -->
+      <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white rounded-2xl p-6 shadow-xl relative overflow-hidden border border-slate-800">
+        <div class="relative z-10 max-w-2xl">
+          <span class="bg-emerald-500/20 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3 border border-emerald-500/30">
+            <i class="fa-solid fa-bolt mr-1"></i> Powered by Nova Sync Engine
+          </span>
+          <h1 class="text-2xl sm:text-3xl font-extrabold mb-2 text-white">100% Guaranteed In-Stock Local Delivery</h1>
+          <p class="text-slate-300 text-sm">Every item listed is verified in real-time. If a product goes out of stock at your nearest store, our algorithm automatically reroutes it from a nearby partner store within 200m!</p>
+        </div>
+      </div>
+
+      <!-- Live Search & Category Filter -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-between items-center bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div class="relative w-full sm:w-80">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400"></i>
+          <input type="text" placeholder="Search fresh milk, bread, medicines..." class="w-full pl-10 pr-4 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500">
+        </div>
+        <div class="flex gap-2 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0 text-xs font-semibold">
+          <button class="px-3 py-2 bg-rose-500 text-white rounded-lg whitespace-nowrap shadow-sm">All Stores</button>
+          <button class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg whitespace-nowrap">Groceries</button>
+          <button class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg whitespace-nowrap">Bakeries</button>
+          <button class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg whitespace-nowrap">Pharmacies</button>
+        </div>
+      </div>
+
+      <!-- Product Catalog Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- PRODUCT CARD 1: Normal In-Stock -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between hover:border-slate-300 transition">
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-3">
+              <div>
+                <span class="badge-verified text-xs px-2.5 py-1 rounded-full font-bold inline-flex items-center">
+                  <i class="fa-solid fa-circle-check mr-1 text-emerald-600"></i> Real-Time Verified
+                </span>
+                <p class="text-xs text-slate-500 mt-1"><i class="fa-solid fa-store mr-1"></i> Sri Sai Supermarket (150m)</p>
+              </div>
+              <span class="text-xs bg-slate-100 font-bold text-slate-600 px-2 py-1 rounded">₹68</span>
+            </div>
+            <h3 class="font-bold text-slate-900 text-lg mb-1">Amul Taaza Toned Milk (1L)</h3>
+            <p class="text-xs text-slate-500 mb-4">Dairy & Fresh Essentials</p>
+          </div>
+          <div class="p-4 bg-slate-50 border-t border-slate-100">
+            <button onclick="addToCart('Amul Taaza Toned Milk', 68, 'Sri Sai Supermarket')" class="w-full bg-rose-500 hover:bg-rose-600 text-white font-semibold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2 shadow">
+              <i class="fa-solid fa-cart-plus"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <!-- PRODUCT CARD 2: Smart Auto-Rerouted (Highlights Killer Feature) -->
+        <div class="bg-white rounded-xl border-2 border-sky-300 shadow-md overflow-hidden flex flex-col justify-between relative">
+          <div class="bg-sky-500 text-white text-xs font-bold px-3 py-1 text-center">
+            <i class="fa-solid fa-route mr-1"></i> SMART AUTO-REROUTE DEMO
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-3">
+              <div>
+                <span class="badge-rerouted text-xs px-2.5 py-1 rounded-full font-bold inline-flex items-center">
+                  <i class="fa-solid fa-arrows-split-up-and-left mr-1 text-sky-600"></i> Rerouted from Store B
+                </span>
+                <p class="text-xs text-slate-500 mt-1"><i class="fa-solid fa-store text-sky-600 mr-1"></i> Baker's Dozen (220m)</p>
+              </div>
+              <span class="text-xs bg-slate-100 font-bold text-slate-600 px-2 py-1 rounded">₹45</span>
+            </div>
+            <h3 class="font-bold text-slate-900 text-lg mb-1">Fresh Whole Wheat Bread</h3>
+            <p class="text-xs text-slate-500 mb-2">Out of stock at Sri Sai Store $\rightarrow$ Seamlessly assigned to Baker's Dozen</p>
+          </div>
+          <div class="p-4 bg-sky-50 border-t border-sky-100">
+            <button onclick="addToCart('Fresh Whole Wheat Bread', 45, 'Baker\'s Dozen (Rerouted)')" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2 shadow">
+              <i class="fa-solid fa-cart-plus"></i> Add (Zero-Cancellation Guarantee)
+            </button>
+          </div>
+        </div>
+
+        <!-- PRODUCT CARD 3: Cross-Category Pharmacy Item -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between hover:border-slate-300 transition">
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-3">
+              <div>
+                <span class="badge-verified text-xs px-2.5 py-1 rounded-full font-bold inline-flex items-center">
+                  <i class="fa-solid fa-circle-check mr-1 text-emerald-600"></i> Real-Time Verified
+                </span>
+                <p class="text-xs text-slate-500 mt-1"><i class="fa-solid fa-store mr-1"></i> Apollo Local Pharmacy (300m)</p>
+              </div>
+              <span class="text-xs bg-slate-100 font-bold text-slate-600 px-2 py-1 rounded">₹120</span>
+            </div>
+            <h3 class="font-bold text-slate-900 text-lg mb-1">Dettol Antiseptic Liquid (250ml)</h3>
+            <p class="text-xs text-slate-500 mb-4">Cross-Category Local Fulfillment</p>
+          </div>
+          <div class="p-4 bg-slate-50 border-t border-slate-100">
+            <button onclick="addToCart('Dettol Antiseptic Liquid', 120, 'Apollo Local Pharmacy')" class="w-full bg-rose-500 hover:bg-rose-600 text-white font-semibold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2 shadow">
+              <i class="fa-solid fa-cart-plus"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Live Cart & Checkout Bar -->
+      <div id="cart-section" class="bg-slate-900 text-white p-6 rounded-2xl shadow-xl border border-slate-800 mt-8">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 pb-4 border-b border-slate-800">
+          <div>
+            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-basket-shopping text-rose-500"></i> Active Neighborhood Order
+            </h3>
+            <p class="text-xs text-slate-400">Zero-Cancellation Engine Active • Auto-Fulfillment Enabled</p>
+          </div>
+          <div id="cart-total" class="text-2xl font-extrabold text-emerald-400">Total: ₹0</div>
+        </div>
+
+        <div id="cart-items-list" class="text-sm text-slate-300 space-y-2 mb-6 min-h-[40px]">
+          <p class="text-slate-500 italic">Your basket is empty. Click "Add to Cart" on any product above to test fulfillment.</p>
+        </div>
+
+        <div class="flex flex-wrap gap-4 items-center justify-between">
+          <div class="flex items-center gap-2 text-xs text-emerald-300 bg-emerald-950/50 px-3 py-2 rounded-lg border border-emerald-800">
+            <i class="fa-solid fa-shield-check text-emerald-400 text-base"></i>
+            <span><strong>0% Cancellation Protection:</strong> All items verified with store stock.</span>
+          </div>
+          <button onclick="simulateOrderCheckout()" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold px-6 py-3 rounded-xl transition text-sm shadow-lg flex items-center gap-2">
+            <i class="fa-solid fa-check-circle"></i> Place Zero-Cancellation Order
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== MODE 2: MERCHANT 1-CLICK SYNC ==================== -->
+    <section id="mode-merchant" class="hidden space-y-6">
+      
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b border-slate-100">
+          <div>
+            <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Merchant Portal</span>
+            <h2 class="text-2xl font-bold text-slate-900 mt-2">Sri Sai Supermarket — Inventory Sync</h2>
+            <p class="text-xs text-slate-500">10-Second 1-Click Inventory Override (Solves 1–3 day catalog update delays)</p>
+          </div>
+          <div class="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-2 rounded-lg text-xs font-bold border border-emerald-200">
+            <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full pulse-glow"></span> Live Online
+          </div>
+        </div>
+
+        <!-- 1-Click Inventory Toggle Table -->
+        <div class="mt-6 overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs uppercase tracking-wider">
+                <th class="p-3">Product Name</th>
+                <th class="p-3">Category</th>
+                <th class="p-3">App Visibility</th>
+                <th class="p-3">1-Click Action</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr>
+                <td class="p-3 font-semibold text-slate-900">Amul Taaza Toned Milk (1L)</td>
+                <td class="p-3 text-slate-500">Dairy</td>
+                <td class="p-3" id="status-milk"><span class="badge-verified text-xs px-2.5 py-1 rounded-full font-bold">In Stock</span></td>
+                <td class="p-3">
+                  <button onclick="toggleStock('milk')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-semibold transition">
+                    Toggle Status
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-900">Fresh Whole Wheat Bread</td>
+                <td class="p-3 text-slate-500">Bakery</td>
+                <td class="p-3" id="status-bread"><span class="bg-rose-100 text-rose-800 border border-rose-200 text-xs px-2.5 py-1 rounded-full font-bold">Out of Stock</span></td>
+                <td class="p-3">
+                  <button onclick="toggleStock('bread')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-semibold transition">
+                    Toggle Status
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-900">Fortune Sunflower Oil (1L)</td>
+                <td class="p-3 text-slate-500">Groceries</td>
+                <td class="p-3" id="status-oil"><span class="badge-verified text-xs px-2.5 py-1 rounded-full font-bold">In Stock</span></td>
+                <td class="p-3">
+                  <button onclick="toggleStock('oil')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-semibold transition">
+                    Toggle Status
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SIMULATED WHATSAPP BOT (Zero Effort Feature) -->
+      <div class="bg-gradient-to-br from-emerald-900 to-slate-900 text-white p-6 rounded-2xl shadow-lg border border-emerald-800">
+        <div class="max-w-xl mx-auto space-y-4">
+          <div class="flex items-center justify-between border-b border-emerald-800/80 pb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center text-slate-950 font-bold text-lg">
+                <i class="fa-brands fa-whatsapp"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-white text-sm">Nova Sync WhatsApp Agent</h4>
+                <p class="text-xs text-emerald-300">Automated Daily Stock Verification Bot</p>
+              </div>
+            </div>
+            <span class="text-xs bg-emerald-950 text-emerald-400 px-2.5 py-1 rounded border border-emerald-700">Simulated Demo</span>
+          </div>
+
+          <div class="bg-slate-950 p-4 rounded-xl space-y-3 font-sans text-xs">
+            <div class="bg-emerald-900/40 p-3 rounded-lg border border-emerald-800 text-emerald-100 max-w-sm">
+              <p class="font-semibold text-emerald-300 mb-1">🤖 Nova Sync Bot:</p>
+              <p>Good morning! Quick check for Sri Sai Store: Is <strong>Amul Taaza Milk</strong> in stock today?</p>
+            </div>
+            <div class="flex gap-2 pt-2">
+              <button onclick="alert('WhatsApp Bot Action: Stock marked as IN STOCK instantly on customer app!')" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold px-4 py-2 rounded-lg text-xs transition">
+                [YES] In Stock
+              </button>
+              <button onclick="alert('WhatsApp Bot Action: Stock marked OUT OF STOCK. Auto-rerouting enabled.')" class="bg-rose-500 hover:bg-rose-600 text-white font-bold px-4 py-2 rounded-lg text-xs transition">
+                [NO] Out of Stock
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== MODE 3: EXECUTIVE DASHBOARD ==================== -->
+    <section id="mode-dashboard" class="hidden space-y-6">
+      
+      <div class="bg-slate-900 text-white p-6 rounded-2xl shadow-xl border border-slate-800">
+        <h2 class="text-2xl font-extrabold text-white">Executive Business Impact & Metrics</h2>
+        <p class="text-xs text-slate-400 mt-1">Projected Business Outcomes Following Nova Sync Implementation</p>
+      </div>
+
+      <!-- METRICS GRID -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+          <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Order Cancellation Rate</p>
+          <div class="text-3xl font-extrabold text-rose-600 mt-2">2.4%</div>
+          <p class="text-xs text-emerald-600 font-semibold mt-1"><i class="fa-solid fa-arrow-down"></i> Reduced from 11%</p>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+          <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Support Tickets / Month</p>
+          <div class="text-3xl font-extrabold text-emerald-600 mt-2">1,800</div>
+          <p class="text-xs text-emerald-600 font-semibold mt-1"><i class="fa-solid fa-arrow-down"></i> Reduced from 5,900</p>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+          <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Repeat Purchase Rate</p>
+          <div class="text-3xl font-extrabold text-blue-600 mt-2">48%</div>
+          <p class="text-xs text-blue-600 font-semibold mt-1"><i class="fa-solid fa-arrow-up"></i> Recovered from 27%</p>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+          <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Budget Allocation</p>
+          <div class="text-3xl font-extrabold text-slate-900 mt-2">₹8.5 Lakhs</div>
+          <p class="text-xs text-slate-500 font-semibold mt-1">Out of ₹25L Limit</p>
+        </div>
+
+      </div>
+
+      <!-- BUSINESS COMPARISON TABLE -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <h3 class="font-bold text-slate-900 text-lg mb-4">Strategic Transformation Breakdown</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead>
+              <tr class="bg-slate-900 text-white text-xs uppercase">
+                <th class="p-3 rounded-tl-lg">Metric</th>
+                <th class="p-3">Current Baseline</th>
+                <th class="p-3">Post-Implementation Target</th>
+                <th class="p-3 rounded-tr-lg">Net Business Impact</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr>
+                <td class="p-3 font-semibold text-slate-900">Cancellation Rate</td>
+                <td class="p-3 text-rose-600 font-bold">11%</td>
+                <td class="p-3 text-emerald-600 font-bold">2.4%</td>
+                <td class="p-3 text-slate-600">78% reduction in cancelled orders</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-900">Support Overhead</td>
+                <td class="p-3 text-rose-600 font-bold">5,900 Tickets</td>
+                <td class="p-3 text-emerald-600 font-bold">1,800 Tickets</td>
+                <td class="p-3 text-slate-600">Saves ~₹4.2 Lakhs/month in support costs</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-900">Repeat Customers</td>
+                <td class="p-3 text-rose-600 font-bold">27% Repeat</td>
+                <td class="p-3 text-emerald-600 font-bold">48% Repeat</td>
+                <td class="p-3 text-slate-600">Recovers 61% churned 4★+ loyal users</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- JAVASCRIPT CONTROLLER LOGIC -->
+  <script>
+    let cart = [];
+
+    function switchMode(mode) {
+      document.getElementById('mode-customer').classList.add('hidden');
+      document.getElementById('mode-merchant').classList.add('hidden');
+      document.getElementById('mode-dashboard').classList.add('hidden');
+
+      document.getElementById('tab-customer').className = "px-4 py-2 rounded-lg font-semibold transition-all text-slate-300 hover:text-white";
+      document.getElementById('tab-merchant').className = "px-4 py-2 rounded-lg font-semibold transition-all text-slate-300 hover:text-white";
+      document.getElementById('tab-dashboard').className = "px-4 py-2 rounded-lg font-semibold transition-all text-slate-300 hover:text-white";
+
+      if (mode === 'customer') {
+        document.getElementById('mode-customer').classList.remove('hidden');
+        document.getElementById('tab-customer').className = "px-4 py-2 rounded-lg font-semibold transition-all bg-rose-500 text-white shadow";
+      } else if (mode === 'merchant') {
+        document.getElementById('mode-merchant').classList.remove('hidden');
+        document.getElementById('tab-merchant').className = "px-4 py-2 rounded-lg font-semibold transition-all bg-rose-500 text-white shadow";
+      } else if (mode === 'dashboard') {
+        document.getElementById('mode-dashboard').classList.remove('hidden');
+        document.getElementById('tab-dashboard').className = "px-4 py-2 rounded-lg font-semibold transition-all bg-rose-500 text-white shadow";
+      }
+    }
+
+    function addToCart(name, price, store) {
+      cart.push({ name, price, store });
+      renderCart();
+    }
+
+    function renderCart() {
+      const cartList = document.getElementById('cart-items-list');
+      const cartTotal = document.getElementById('cart-total');
+
+      if (cart.length === 0) {
+        cartList.innerHTML = '<p class="text-slate-500 italic">Your basket is empty. Click "Add to Cart" on any product above to test fulfillment.</p>';
+        cartTotal.innerHTML = 'Total: ₹0';
+        return;
+      }
+
+      let total = 0;
+      let html = '<ul class="space-y-2">';
+      cart.forEach((item, index) => {
+        total += item.price;
+        html += `<li class="flex justify-between items-center bg-slate-800 p-2.5 rounded-lg border border-slate-700">
+          <div>
+            <span class="font-bold text-white">${item.name}</span>
+            <span class="text-xs text-slate-400 block"><i class="fa-solid fa-store text-rose-400 mr-1"></i> Fulfilled by: ${item.store}</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="font-bold text-emerald-400">₹${item.price}</span>
+            <button onclick="removeFromCart(${index})" class="text-xs text-rose-400 hover:text-rose-300"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        </li>`;
+      });
+      html += '</ul>';
+
+      cartList.innerHTML = html;
+      cartTotal.innerHTML = `Total: ₹${total}`;
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+
+    function simulateOrderCheckout() {
+      if (cart.length === 0) {
+        alert("Please add at least one item to test zero-cancellation checkout!");
+        return;
+      }
+      alert("🎉 Order Placed Successfully!\n\nZero-Cancellation Status: 100% Verified\nAll items routed and confirmed with local partner stores. Zero order cancellations guaranteed!");
+      cart = [];
+      renderCart();
+    }
+
+    function toggleStock(item) {
+      const el = document.getElementById(`status-${item}`);
+      if (el.innerHTML.includes('In Stock')) {
+        el.innerHTML = '<span class="bg-rose-100 text-rose-800 border border-rose-200 text-xs px-2.5 py-1 rounded-full font-bold">Out of Stock</span>';
+      } else {
+        el.innerHTML = '<span class="badge-verified text-xs px-2.5 py-1 rounded-full font-bold">In Stock</span>';
+      }
+    }
+  </script>
+</body>
+</html>
